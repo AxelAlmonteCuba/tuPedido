@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'features/menu/screens/menu_screen.dart';
 import 'features/kitchen/screens/kitchen_panel_screen.dart';
+import 'features/nuevo_pedido/screens/pedidosActivosScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -74,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MenuScreen()),
+                    MaterialPageRoute(builder: (context) => const PedidosActivosScreen()),
                   );
                 },
               ),

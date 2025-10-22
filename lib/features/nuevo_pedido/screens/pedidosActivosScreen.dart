@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lab_04/features/menu/screens/menu_screen.dart';
 import 'package:lab_04/features/nuevo_pedido/widgets/mesaCard.dart';
 import 'package:lab_04/features/nuevo_pedido/widgets/pedidoCard.dart';
 
@@ -124,7 +125,12 @@ class _PedidosActivosScreenState extends State<PedidosActivosScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MenuScreen()),
+            );
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.deepOrange,
             padding: const EdgeInsets.symmetric(vertical: 16),
