@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'features/menu/screens/menu_screen.dart';
+import 'features/kitchen/screens/kitchen_panel_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -88,11 +89,10 @@ class HomeScreen extends StatelessWidget {
                 description: 'Ver y gestionar pedidos en preparación',
                 buttonText: 'Ingresar a Cocina',
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Funcionalidad de cocina en desarrollo'),
-                      duration: Duration(seconds: 2),
-                    ),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const KitchenPanelScreen()),
                   );
                 },
               ),
