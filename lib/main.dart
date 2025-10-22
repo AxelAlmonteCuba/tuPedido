@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lab_04/features/nuevo_pedido/screens/pedidosActivosScreen.dart';
 import 'features/menu/screens/menu_screen.dart';
 
 void main() {
@@ -89,10 +90,10 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
             OutlinedButton.icon(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Funcionalidad de cocina en desarrollo'),
-                    duration: Duration(seconds: 2),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PedidosActivosScreen(),
                   ),
                 );
               },
