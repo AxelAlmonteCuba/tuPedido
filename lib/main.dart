@@ -11,12 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tu Pedido',
+      title: 'TuPedido',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        useMaterial3: true,
         fontFamily: 'Roboto',
-        scaffoldBackgroundColor: Colors.grey[100],
+        colorSchemeSeed: const Color(0xFFFF6F00),
       ),
       home: const HomeScreen(),
     );
@@ -29,94 +29,133 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tu Pedido'),
-        centerTitle: true,
-        backgroundColor: const Color(0xFFFF5722),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFFFF3E0), Color(0xFFFFFFFF)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 50),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'TuPedido',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFE65100),
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Selecciona tu rol para continuar',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: Colors.black54),
+              ),
+              const SizedBox(height: 30),
+
+              // Tarjeta Mesero
+              _buildRoleCard(
+                context,
+                icon: Icons.person,
+                color: Colors.blue,
+                title: 'Mesero',
+                description: 'Tomar pedidos y gestionar mesas',
+                buttonText: 'Ingresar como Mesero',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MenuScreen()),
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+
+              // Tarjeta Cocina
+              _buildRoleCard(
+                context,
+                icon: Icons.restaurant,
+                color: Colors.deepOrange,
+                title: 'Cocina',
+                description: 'Ver y gestionar pedidos en preparación',
+                buttonText: 'Ingresar a Cocina',
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Funcionalidad de cocina en desarrollo'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.restaurant_menu,
-              size: 100,
-              color: Color(0xFFFF5722),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Sistema de Pedidos',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
+    );
+  }
+
+  Widget _buildRoleCard(
+    BuildContext context, {
+    required IconData icon,
+    required Color color,
+    required String title,
+    required String description,
+    required String buttonText,
+    required VoidCallback onPressed,
+  }) {
+    return Center(
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        elevation: 3,
+        color: Colors.white,
+        child: Container(
+          width: double.infinity,
+          constraints: const BoxConstraints(maxWidth: 350),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 60, color: color),
+              const SizedBox(height: 10),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Para Restaurantes',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.grey[600],
+              const SizedBox(height: 6),
+              Text(
+                description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.black54),
               ),
-            ),
-            const SizedBox(height: 50),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MenuScreen(),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: onPressed,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: color,
+                  foregroundColor: Colors.white,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                );
-              },
-              icon: const Icon(Icons.menu_book, size: 24),
-              label: const Text(
-                'Ver Menú del Día',
-                style: TextStyle(fontSize: 18),
+                ),
+                child: Text(buttonText),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFF5722),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 16,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            OutlinedButton.icon(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Funcionalidad de cocina en desarrollo'),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.restaurant, size: 24),
-              label: const Text(
-                'Panel de Cocina',
-                style: TextStyle(fontSize: 18),
-              ),
-              style: OutlinedButton.styleFrom(
-                foregroundColor: const Color(0xFFFF5722),
-                side: const BorderSide(
-                  color: Color(0xFFFF5722),
-                  width: 2,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 16,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
